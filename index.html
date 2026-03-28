@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块 - 双人对战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="title-section">
+            <h1>🎮 俄罗斯方块</h1>
+            <p class="subtitle">经典对战版</p>
+        </div>
+
+        <div class="players-section">
+            <div class="player-panel" id="player1">
+                <div class="player-header">
+                    <span class="player-icon">👤</span>
+                    <h2>玩家 1</h2>
+                    <span class="controls-hint">WASD + 空格</span>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">分数</div>
+                    <div class="score-value" id="score1">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">等级</div>
+                    <div class="score-value" id="level1">1</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">消除行数</div>
+                    <div class="score-value" id="lines1">0</div>
+                </div>
+                <canvas id="game1" width="240" height="400"></canvas>
+                <div class="next-piece">
+                    <span>下一个：</span>
+                    <canvas id="next1" width="80" height="80"></canvas>
+                </div>
+            </div>
+
+            <div class="vs-badge">VS</div>
+
+            <div class="player-panel" id="player2">
+                <div class="player-header">
+                    <span class="player-icon">👤</span>
+                    <h2>玩家 2</h2>
+                    <span class="controls-hint">方向键 + Enter</span>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">分数</div>
+                    <div class="score-value" id="score2">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">等级</div>
+                    <div class="score-value" id="level2">1</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">消除行数</div>
+                    <div class="score-value" id="lines2">0</div>
+                </div>
+                <canvas id="game2" width="240" height="400"></canvas>
+                <div class="next-piece">
+                    <span>下一个：</span>
+                    <canvas id="next2" width="80" height="80"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button id="startBtn" class="btn btn-primary">开始游戏</button>
+            <button id="pauseBtn" class="btn btn-secondary" disabled>暂停</button>
+            <button id="restartBtn" class="btn btn-secondary" disabled>重新开始</button>
+        </div>
+
+        <div class="sound-toggle">
+            <label>
+                <input type="checkbox" id="soundToggle" checked>
+                🔊 音效
+            </label>
+        </div>
+    </div>
+
+    <div class="game-over-overlay" id="gameOverOverlay">
+        <div class="game-over-content">
+            <h2 id="winnerText">游戏结束</h2>
+            <p id="finalScore"></p>
+            <button id="playAgainBtn" class="btn btn-primary">再来一局</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
