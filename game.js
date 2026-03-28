@@ -3,6 +3,8 @@ class SoundManager {
     constructor() {
         this.enabled = true;
         this.audioContext = null;
+        this.gameOverInterval = null;
+        this.gameOverOscillators = [];
     }
 
     init() {
@@ -30,7 +32,7 @@ class SoundManager {
             drop: () => this.playTone(150, 0.1, 'square', 0.2),
             clear: () => this.playClear(),
             levelUp: () => this.playLevelUp(),
-            gameOver: () => this.playGameOver()
+            gameOver: () => this.startGameOverLoop()
         };
 
         if (sounds[type]) sounds[type]();
@@ -63,15 +65,54 @@ class SoundManager {
         });
     }
 
-    playGameOver() {
-        const frequencies = [400, 350, 300, 250, 200];
-        frequencies.forEach((freq, i) => {
-            setTimeout(() => this.playTone(freq, 0.3, 'sawtooth', 0.2), i * 150);
-        });
+    startGameOverLoop() {
+        this.stopGameOverLoop();
+        
+        const melody = [
+            { freq: 392, dur: 0.15 },
+            { freq: 349, dur: 0.15 },
+            { freq: 330, dur: 0.15 },
+            { freq: 294, dur: 0.2 },
+            { freq: 262, dur: 0.3 },
+            { freq: 0, dur: 0.1 },
+            { freq: 294, dur: 0.15 },
+            { freq: 330, dur: 0.15 },
+            { freq: 262, dur: 0.2 },
+            { freq: 247, dur: 0.3 },
+            { freq: 0, dur: 0.1 },
+            { freq: 220, dur: 0.15 },
+            { freq: 247, dur: 0.15 },
+            { freq: 196, dur: 0.2 },
+            { freq: 175, dur: 0.3 },
+            { freq: 0, dur: 0.15 }
+        ];
+        
+        let noteIndex = 0;
+        const playNote = () => {
+            if (!this.enabled) return;
+            const note = melody[noteIndex];
+            if (note.freq > 0) {
+                this.playTone(note.freq, note.dur, 'triangle', 0.3);
+            }
+            noteIndex = (noteIndex + 1) % melody.length;
+        };
+        
+        playNote();
+        this.gameOverInterval = setInterval(playNote, 500);
+    }
+
+    stopGameOverLoop() {
+        if (this.gameOverInterval) {
+            clearInterval(this.gameOverInterval);
+            this.gameOverInterval = null;
+        }
     }
 
     toggle(enabled) {
         this.enabled = enabled;
+        if (!enabled) {
+            this.stopGameOverLoop();
+        }
     }
 }
 
