@@ -150,8 +150,8 @@ canvas {
 
 .next-piece canvas {
     margin-top: 0;
-    width: 80px;
-    height: 80px;
+    width: 76px;
+    height: 76px;
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 

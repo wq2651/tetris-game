@@ -30,6 +30,7 @@ class SoundManager {
             move: () => this.playTone(200, 0.05, 'square', 0.1),
             rotate: () => this.playTone(400, 0.08, 'square', 0.15),
             drop: () => this.playTone(150, 0.1, 'square', 0.2),
+            land: () => this.playTone(100, 0.08, 'square', 0.15),
             clear: () => this.playClear(),
             levelUp: () => this.playLevelUp(),
             gameOver: () => this.startGameOverLoop()
@@ -322,6 +323,7 @@ class TetrisGame {
         if (now - this.lastDropTime > dropSpeed) {
             if (!this.move(0, 1)) {
                 this.lockPiece();
+                this.sound.play('land');
             }
             this.lastDropTime = now;
         }
